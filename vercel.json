@@ -2,7 +2,11 @@
   "rewrites": [
     {
       "source": "/tushare",
-      "destination": "/api/tushare"
+      "destination": "/api/tushare.js"
+    },
+    {
+      "source": "/tushare/:path*",
+      "destination": "/api/tushare.js"
     }
   ]
 }
