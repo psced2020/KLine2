@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/tushare",
+      "destination": "/api/tushare"
+    }
+  ]
+}
