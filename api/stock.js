@@ -68,8 +68,11 @@ export default async function handler(request) {
 
     const fileName = getFileName(code);
 
-    // 读取JSON格式的数据文件
-    const fileResponse = await fetch(new URL(`../data/${fileName}`, import.meta.url));
+    // 通过HTTP请求读取public目录下的JSON文件
+    const baseUrl = url.origin || 'https://vercel.com';
+    const dataUrl = `${baseUrl}/data/${fileName}`;
+
+    const fileResponse = await fetch(dataUrl);
     if (!fileResponse.ok) {
       return new Response(JSON.stringify({
         success: false,
