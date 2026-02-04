@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/tushare/:match*",
+      "destination": "/api/tushare"
+    }
+  ]
+}
