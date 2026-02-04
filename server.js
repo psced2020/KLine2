@@ -2,9 +2,13 @@ import http from 'http'
 import fs from 'fs'
 import path from 'path'
 import iconv from 'iconv-lite'
+import zlib from 'zlib'
+import { promisify } from 'util'
 
-// 数据目录 - 指向本地的K线数据文件夹
-const DATA_DIR = path.join('D:', 'software', 'export')
+const gunzip = promisify(zlib.gunzip)
+
+// 数据目录 - 指向项目中的data文件夹
+const DATA_DIR = path.join(import.meta.dirname, 'data')
 
 // 股票代码映射：前端输入的代码 -> 本地文件名
 function getFileName(code) {
@@ -15,7 +19,7 @@ function getFileName(code) {
     ? 'SH'
     : 'SZ'
 
-  return `${market}${codeNum}.txt`
+  return `${market}${codeNum}.txt.gz`
 }
 
 // 解析本地txt文件
@@ -73,9 +77,12 @@ const server = http.createServer(async (req, res) => {
 
       console.log(`读取数据: ${filePath}`)
 
-      // 读取本地文件（GBK编码）
-      const buffer = fs.readFileSync(filePath)
-      const content = iconv.decode(buffer, 'GBK')
+      // 读取gzip压缩的本地文件
+      const gzBuffer = fs.readFileSync(filePath)
+      // 解压gzip
+      const decompressed = await gunzip(gzBuffer)
+      // 转换GBK编码
+      const content = iconv.decode(decompressed, 'GBK')
 
       // 解析数据
       const klineData = parseKlineData(content)

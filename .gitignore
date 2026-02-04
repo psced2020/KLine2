@@ -4,8 +4,9 @@ node_modules/
 # Build output
 dist/
 
-# Data files (use local storage)
+# Data files (use compressed files)
 data/*.txt
+!data/*.gz
 !data/README.md
 
 # IDE
