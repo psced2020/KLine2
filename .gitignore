@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Data files (use local storage)
+data/*.txt
+!data/README.md
+
+# IDE
+.vscode/
+.idea/
