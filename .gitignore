@@ -4,9 +4,10 @@ node_modules/
 # Build output
 dist/
 
-# Data files (use compressed files)
+# Data files (use JSON format)
 data/*.txt
-!data/*.gz
+data/*.gz
+!data/*.json
 !data/README.md
 
 # IDE
