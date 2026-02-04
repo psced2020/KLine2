@@ -213,8 +213,8 @@ async function loadStockData() {
   errorMessage.value = ''
 
   try {
-    // 从本地服务器获取数据
-    const response = await fetch(`http://localhost:3001/api/stock?code=${stockCode.value}`)
+    // 从Vercel Edge Function获取数据
+    const response = await fetch(`/api/stock?code=${stockCode.value}`)
 
     if (!response.ok) {
       throw new Error('获取数据失败')
